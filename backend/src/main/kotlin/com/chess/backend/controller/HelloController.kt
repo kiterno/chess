@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/chess/api")
 class HelloController {
 
+    // http://localhost:8080/chess/api/hello
     @GetMapping("/hello")
     fun hello(): String {
         return "This is chess backend"
