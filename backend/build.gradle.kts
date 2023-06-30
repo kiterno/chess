@@ -17,11 +17,20 @@ repositories {
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+//	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+	testImplementation("org.springframework.security:spring-security-test:6.1.1")
+	implementation("org.apache.logging.log4j:log4j-api:2.7")
+	implementation("org.apache.logging.log4j:log4j-core:2.12.4")
+	implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.7")
+
+	implementation("io.jsonwebtoken:jjwt:0.9.1")
+	implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
+
 }
 
 tasks.withType<KotlinCompile> {
