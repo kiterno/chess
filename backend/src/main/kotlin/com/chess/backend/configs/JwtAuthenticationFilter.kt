@@ -16,7 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter
 @Component
 class JwtAuthenticationFilter: OncePerRequestFilter() {
 
-    private var logger = LoggerFactory.getLogger(this.javaClass)
+    private var LOGGER = LoggerFactory.getLogger(this.javaClass)
 
     @Autowired
     private lateinit var customUserDetailsService: CustomUserDetailsService
@@ -44,7 +44,8 @@ class JwtAuthenticationFilter: OncePerRequestFilter() {
             }
 
             val userDetails = this.customUserDetailsService.loadUserByUsername(username)
-            logger.info("UserDetails = $userDetails")
+            LOGGER.info("UserDetails = $userDetails")
+
             if (username != null && SecurityContextHolder.getContext().authentication == null) {
                 val usernamePasswordAuthenticationToken = UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
 
