@@ -12,7 +12,7 @@ const val claimsKey = "scopes"
 const val signingKey = "SIGNINGKEY"
 const val issuer = "ISSUER"
 
-const val EXPIRE_DATE = 10 * 24 * 60 * 60 * 1000
+const val EXPIRE_DATE = 24 * 60 * 60 * 1000
 
 @Component
 class JwtTokenUtil {
@@ -34,4 +34,12 @@ class JwtTokenUtil {
     fun isValidToken(claims: Claims?, userDetails: UserDetails): Boolean = claims?.let {
         return it.subject.equals(userDetails.username, true) && !(it.expiration?.before(Date()) ?: true)
     } ?: false
+
+    fun getUsernameFromToken(jwtToken: String): String {
+        return getEmployeeNameFromJwtToken(jwtToken)
+    }
+
+    fun getEmployeeNameFromJwtToken(token: String): String {
+        return Jwts.parser().setSigningKey(signingKey).parseClaimsJws(token).body.subject
+    }
 }
