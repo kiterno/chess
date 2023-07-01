@@ -1,19 +1,26 @@
 package com.chess.backend.service
 
-import org.springframework.security.core.userdetails.User
+import com.chess.backend.model.CustomerUserDetails
+import com.chess.backend.repository.UserMongoRepository
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 
 @Service
-class   CustomUserDetailsService: UserDetailsService {
+class CustomUserDetailsService: UserDetailsService {
 
-    override fun loadUserByUsername(username: String?): UserDetails {
-        if(username.equals("DheeruBhai")) {
-            return User("DheeruBhai", "123", arrayListOf())
+    @Autowired
+    private lateinit var userMongoRepository: UserMongoRepository
+
+    override fun loadUserByUsername(username: String): UserDetails {
+        val user = userMongoRepository.findByUserName(username)
+
+        if (user == null) {
+            throw UsernameNotFoundException("User not Found!!")
         } else {
-            throw UsernameNotFoundException("User Not Found!!")
+            return CustomerUserDetails(user)
         }
     }
 }

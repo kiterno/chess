@@ -31,7 +31,7 @@ class JwtAuthenticationFilter: OncePerRequestFilter() {
         // Get Jwt -> Bearer -> Validate ->
 
         val requestTokenHeader = request.getHeader("Authorization")
-        var username: String? = null
+        var username: String = ""
         var jwtToken: String?
 
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
