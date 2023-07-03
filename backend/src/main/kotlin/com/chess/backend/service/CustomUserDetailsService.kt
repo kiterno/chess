@@ -1,7 +1,8 @@
 package com.chess.backend.service
 
-import com.chess.backend.model.CustomerUserDetails
+import com.chess.backend.model.CustomUserDetails
 import com.chess.backend.repository.UserMongoRepository
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class CustomUserDetailsService: UserDetailsService {
+    private var logger = LoggerFactory.getLogger(this.javaClass)
 
     @Autowired
     private lateinit var userMongoRepository: UserMongoRepository
@@ -20,7 +22,7 @@ class CustomUserDetailsService: UserDetailsService {
         if (user == null) {
             throw UsernameNotFoundException("User not Found!!")
         } else {
-            return CustomerUserDetails(user)
+            return CustomUserDetails(user)
         }
     }
 }

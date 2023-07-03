@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.ProviderManager
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
@@ -37,7 +38,7 @@ class SecurityConfig {
             .cors()
             .disable()
             .authorizeHttpRequests()
-            .requestMatchers("/token", "/auth", "/loginUser", "/signup").permitAll()
+            .requestMatchers("/token", "/auth", "/loginUser", "/chess/api/signup").permitAll()
             .anyRequest()
             .authenticated()
             .and()
@@ -53,7 +54,9 @@ class SecurityConfig {
     }
 
     @Bean
-    fun authenticationManager(): AuthenticationManager? {
+    fun authenticationManager(authConfiguration: AuthenticationConfiguration): AuthenticationManager? {
+//        Below is one way to declare this bean
+//        return authConfiguration.authenticationManager
         val authProvider = DaoAuthenticationProvider()
         authProvider.setUserDetailsService(customUserDetailsService)
         authProvider.setPasswordEncoder(passwordEncoder())

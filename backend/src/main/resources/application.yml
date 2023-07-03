@@ -1,0 +1,21 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            clientId: Iv1.4078829fc2c8549a
+            clientSecret: 0a6ee63d316053d500c89d5d3f958bef6b9f09f5
+
+          google:
+            clientId: 944562617970-hbk64o2aef2pn9lod5ruvq9g2uka4c4c.apps.googleusercontent.com
+            clientSecret: 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
+
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: chess
+
+server:
+  port: 8080

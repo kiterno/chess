@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 class JwtController {
+
     @Autowired
     private lateinit var jwtTokenUtil: JwtTokenUtil
 
@@ -25,6 +26,7 @@ class JwtController {
     private lateinit var customUserDetailsService: CustomUserDetailsService
 
     private var logger = LoggerFactory.getLogger(this.javaClass)
+
     @RequestMapping("/token", method = [RequestMethod.POST])
     @Throws(BadCredentialsException::class, UsernameNotFoundException::class, Exception::class)
     fun generateToken(@RequestBody jwtRequest: JwtRequest): ResponseEntity<*> {
@@ -39,7 +41,9 @@ class JwtController {
             e.printStackTrace()
             throw Exception("Bad Credentials!!!")
         }
-
+        catch (e: Exception) {
+            e.printStackTrace()
+        }
         val userDetails = this.customUserDetailsService.loadUserByUsername(jwtRequest.username)
         val token = this.jwtTokenUtil.generateToken(userDetails.username, 2)
 
