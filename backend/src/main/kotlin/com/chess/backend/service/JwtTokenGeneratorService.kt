@@ -1,8 +1,7 @@
-package com.chess.backend.controller
+package com.chess.backend.service
 
 import com.chess.backend.model.JwtRequest
 import com.chess.backend.model.JwtResponse
-import com.chess.backend.service.CustomUserDetailsService
 import com.chess.backend.util.JwtTokenUtil
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -11,10 +10,11 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.userdetails.UsernameNotFoundException
+import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.*
 
-@RestController
-class JwtController {
+@Service
+class JwtTokenGeneratorService {
 
     @Autowired
     private lateinit var jwtTokenUtil: JwtTokenUtil
@@ -27,7 +27,6 @@ class JwtController {
 
     private var logger = LoggerFactory.getLogger(this.javaClass)
 
-    @RequestMapping("/token", method = [RequestMethod.POST])
     @Throws(BadCredentialsException::class, UsernameNotFoundException::class, Exception::class)
     fun generateToken(@RequestBody jwtRequest: JwtRequest): ResponseEntity<*> {
 
@@ -36,10 +35,10 @@ class JwtController {
             this.authenticationManager.authenticate(UsernamePasswordAuthenticationToken(jwtRequest.username, jwtRequest.password))
         } catch (e: UsernameNotFoundException) {
             e.printStackTrace()
-            throw Exception("Username Not Found Exception!!!")
+            throw UsernameNotFoundException("Username Not Found Exception!!!")
         } catch (e: BadCredentialsException) {
             e.printStackTrace()
-            throw Exception("Bad Credentials!!!")
+            throw BadCredentialsException("Bad Credentials!!!")
         }
         catch (e: Exception) {
             e.printStackTrace()
