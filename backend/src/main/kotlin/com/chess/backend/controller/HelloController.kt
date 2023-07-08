@@ -11,6 +11,7 @@ class HelloController {
     // http://localhost:8080/chess/api/hello
     @GetMapping("/hello")
     fun hello(): String {
+        RuntimeException("Exception while making the api //")
         return "This is chess backend"
     }
 }
