@@ -12,7 +12,7 @@ data class User (
     var id: UUID?,
     @Indexed(name = "username", unique = true)
     val username: String,
-    val firstName: String?,
+    val firstName: String,
     val lastName: String?,
     val email: String?,
     var password: String,
