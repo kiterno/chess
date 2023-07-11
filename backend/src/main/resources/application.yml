@@ -10,3 +10,12 @@ spring:
           google:
             clientId: 944562617970-hbk64o2aef2pn9lod5ruvq9g2uka4c4c.apps.googleusercontent.com
             clientSecret: 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
+
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: chess
+
+server:
+  port: 8080

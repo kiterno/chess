@@ -11,6 +11,8 @@ class HelloController {
     // http://localhost:8080/chess/api/hello
     @GetMapping("/hello")
     fun hello(): String {
-        return "This is chess backend"
+        var text: String = "this is a private page "
+        text += "not allowed to unauthenticated users..."
+        return text
     }
 }
